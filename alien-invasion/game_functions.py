@@ -8,10 +8,12 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """响应按键"""
     if event.key == pygame.K_LEFT:
         ship.moving_left = True
-    if event.key == pygame.K_RIGHT:
+    elif event.key == pygame.K_RIGHT:
         ship.moving_right = True
-    if event.key == pygame.K_SPACE:
+    elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
+    elif event.key == pygame.K_ESCAPE:
+        sys.exit()
 
 
 def fire_bullet(ai_settings, screen, ship, bullets):
@@ -25,7 +27,7 @@ def check_keyup_events(event, ship):
     """按键松开"""
     if event.key == pygame.K_LEFT:
         ship.moving_left = False
-    if event.key == pygame.K_RIGHT:
+    elif event.key == pygame.K_RIGHT:
         ship.moving_right = False
 
 
