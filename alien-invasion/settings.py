@@ -18,3 +18,11 @@ class Settings:
         self.bullet_color = 60, 60, 60
         # 同屏最大子弹量
         self.bullets_allowed = 3
+
+        # 外星人设置
+        # 横向移动速度
+        self.alien_speed_factor = 1
+        # 纵向移动速度
+        self.fleet_drop_speed = 10
+        # 1右移，-1左移
+        self.fleet_direction = 1
