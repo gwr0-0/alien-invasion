@@ -32,7 +32,7 @@ def check_keyup_events(event, ship):
         ship.moving_right = False
 
 
-def check_events(ai_settings, screen, ship, bullets):
+def check_events(ai_settings, screen, stats, play_button, ship, bullets):
     """响应按键和鼠标事件"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -41,9 +41,18 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(stats, play_button, mouse_x, mouse_y)
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+def check_play_button(stats, play_button, mouse_x, mouse_y):
+    """点击Play按钮时开始游戏"""
+    if play_button.rect.collidepoint(mouse_x, mouse_y):
+        stats.game_active = True
+
+
+def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
     """更新屏幕上对图像，并切换到新屏幕"""
     # 每次循环时都重绘屏幕
     screen.fill(ai_settings.hg_color)
@@ -52,6 +61,11 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+
+    # 如果游戏处于非活跃状态，就绘制Play按钮
+    if not stats.game_active:
+        play_button.draw_button()
+
     # 让最近绘制对屏幕可见
     pygame.display.flip()
 
