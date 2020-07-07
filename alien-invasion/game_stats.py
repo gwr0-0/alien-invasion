@@ -6,3 +6,5 @@ class GameStats:
 
         # 让游戏一开始处于非活动状态
         self.game_active = False
+        # 记分
+        self.score = 0

@@ -6,7 +6,7 @@ class Settings:
         # 屏幕设置
         self.screen_width = 1200
         self.screen_height = 800
-        self.hg_color = (230, 230, 230)
+        self.bg_color = (230, 230, 230)
 
         # 飞船设置
         self.ship_speed_factor = 1.5
@@ -26,3 +26,6 @@ class Settings:
         self.fleet_drop_speed = 10
         # 1右移，-1左移
         self.fleet_direction = 1
+
+        # 记分
+        self.alien_points = 1
