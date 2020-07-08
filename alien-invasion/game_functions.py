@@ -138,7 +138,14 @@ def check_fleet_edges(ai_settings, aliens):
     """有外星人到达边边缘时的策略"""
     for alien in aliens.sprites():
         if alien.check_edge():
-            ai_settings.fleet_direction *= -1
+            check_fleet_direction(ai_settings, aliens)
+
+
+def check_fleet_direction(ai_settings, aliens):
+    """将整群机器人下移，并改变它们的方向"""
+    for alien in aliens.sprites():
+        alien.rect.y += ai_settings.fleet_drop_speed
+    ai_settings.fleet_direction *= -1
 
 
 def update_aliens(ai_settings, aliens):
