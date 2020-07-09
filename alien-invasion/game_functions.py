@@ -148,6 +148,15 @@ def check_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, stats, ship, aliens):
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
+
+    # 检测外星人和飞船直接的碰撞
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(stats)
+
+
+def ship_hit(stats):
+    print("Ship hit!")
+    stats.game_active = False
