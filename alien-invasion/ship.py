@@ -24,6 +24,10 @@ class Ship:
         self.moving_left = False
         self.moving_right = False
 
+    def center_ship(self):
+        """飞船放到屏幕底端中央"""
+        self.center = self.screen_rect.centerx
+
     def update(self):
         """根据移动标志调整飞船的位置"""
         if self.moving_left and self.rect.left > 0:
