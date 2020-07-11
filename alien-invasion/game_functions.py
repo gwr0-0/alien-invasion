@@ -97,6 +97,11 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, aliens, bullet
     # 检查进度，重置子弹和外星人
     if len(aliens) == 0:
         bullets.empty()
+
+        # 提高等级
+        stats.level += 1
+        sb.prep_level()
+
         create_fleet(ai_settings, screen, aliens)
 
 

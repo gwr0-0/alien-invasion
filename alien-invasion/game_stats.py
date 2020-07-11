@@ -8,3 +8,5 @@ class GameStats:
         self.game_active = False
         # 记分
         self.score = 0
+        # 登记
+        self.level = 1
