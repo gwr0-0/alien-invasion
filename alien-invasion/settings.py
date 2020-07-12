@@ -10,6 +10,7 @@ class Settings:
 
         # 飞船设置
         self.ship_speed_factor = 1.5
+        self.ship_limit = 3
 
         # 子弹设置
         self.bullet_speed_factor = 1
@@ -21,9 +22,9 @@ class Settings:
 
         # 外星人设置
         # 横向移动速度
-        self.alien_speed_factor = 1
+        self.alien_speed_factor = 10
         # 纵向移动速度
-        self.fleet_drop_speed = 10
+        self.fleet_drop_speed = 100
         # 1右移，-1左移
         self.fleet_direction = 1
 

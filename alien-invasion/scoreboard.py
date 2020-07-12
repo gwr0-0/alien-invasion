@@ -1,4 +1,7 @@
 import pygame.font
+from pygame.sprite import Group
+
+from ship import Ship
 
 
 class Scoreboard:
@@ -17,6 +20,7 @@ class Scoreboard:
         # 准备初始得分图像
         self.prep_score()
         self.prep_level()
+        self.prep_ships()
 
     def prep_score(self):
         """将得分转换为渲染的图像"""
@@ -38,7 +42,20 @@ class Scoreboard:
         self.level_rect.right = self.score_rect.right
         self.level_rect.top = self.score_rect.bottom + 10
 
+    def prep_ships(self):
+        """显示剩下的飞船"""
+        self.ships = Group()
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_settings, self.screen)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
+
     def show_score(self):
-        """在屏幕上显示得分"""
+        """在屏幕上显示"""
+        # 绘制分数
         self.screen.blit(self.score_image, self.score_rect)
+        # 绘制等级
         self.screen.blit(self.level_image, self.level_rect)
+        # 绘制飞船
+        self.ships.draw(self.screen)
