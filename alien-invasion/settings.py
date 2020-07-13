@@ -24,7 +24,7 @@ class Settings:
         # 横向移动速度
         self.alien_speed_factor = 10
         # 纵向移动速度
-        self.fleet_drop_speed = 100
+        self.fleet_drop_speed = 10
         # 1右移，-1左移
         self.fleet_direction = 1
 

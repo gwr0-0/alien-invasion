@@ -32,7 +32,7 @@ def run_game():
     # 开始游戏主循环
     while True:
         # 监视事件，刷新屏幕
-        gf.check_events(ai_settings, screen, stats, play_button, ship, bullets)
+        gf.check_events(ai_settings, screen, stats, play_button, sb, ship, aliens, bullets)
         # 游戏活动状态
         if stats.game_active:
             ship.update()
