@@ -48,7 +48,8 @@ def check_events(ai_settings, screen, stats, play_button, sb, ship, aliens, bull
 
 def check_play_button(ai_settings, screen, stats, play_button, sb, ship, aliens, bullets, mouse_x, mouse_y):
     """点击Play按钮时开始游戏"""
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
         # 重置游戏统计信息
         stats.reset_stats()
         stats.game_active = True
