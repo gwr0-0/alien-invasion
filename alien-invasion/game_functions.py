@@ -54,6 +54,9 @@ def check_play_button(ai_settings, screen, stats, play_button, sb, ship, aliens,
         stats.reset_stats()
         stats.game_active = True
 
+        # 重置游戏设置
+        ai_settings.initialize_dynamic_settings()
+
         # 重置游戏屏幕显示
         sb.prep_score()
         sb.prep_level()
@@ -117,6 +120,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, aliens, bullet
         # 提高等级
         stats.level += 1
         sb.prep_level()
+        ai_settings.increase_speed()
 
         create_fleet(ai_settings, screen, aliens)
 

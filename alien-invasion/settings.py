@@ -9,11 +9,9 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         # 飞船设置
-        self.ship_speed_factor = 1.5
         self.ship_limit = 3
 
         # 子弹设置
-        self.bullet_speed_factor = 1
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
@@ -21,8 +19,6 @@ class Settings:
         self.bullets_allowed = 3
 
         # 外星人设置
-        # 横向移动速度
-        self.alien_speed_factor = 10
         # 纵向移动速度
         self.fleet_drop_speed = 10
         # 1右移，-1左移
@@ -30,3 +26,23 @@ class Settings:
 
         # 记分
         self.alien_points = 1
+
+        # 加速游戏
+        self.speedup_scale = 1.1
+
+        self.initialize_dynamic_settings()
+
+    def initialize_dynamic_settings(self):
+        """会随游戏进行而变化的设置"""
+        # 外星人横向移动速度
+        self.ship_speed_factor = 1.5
+        # 子弹速度
+        self.bullet_speed_factor = 1
+        # 飞船设置
+        self.alien_speed_factor = 1
+
+    def increase_speed(self):
+        """加速游戏设置"""
+        self.ship_speed_factor *= self.speedup_scale
+        self.bullet_speed_factor *= self.speedup_scale
+        self.alien_speed_factor *= self.speedup_scale
