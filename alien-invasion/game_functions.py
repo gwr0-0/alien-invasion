@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from alien_bullet import AlienBullet
 from bullet import Bullet
 from alien import Alien
 
@@ -22,6 +23,14 @@ def fire_bullet(ai_settings, screen, ship, bullets):
     if len(bullets) < ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+
+
+def fire_aliens_bullet(ai_settings, screen, aliens, aliens_bullets):
+    """如果没有达到限制，就发射一颗子弹"""
+    for alien in aliens:
+        if len(aliens_bullets) < ai_settings.bullets_allowed:
+            new_bullet = AlienBullet(ai_settings, screen, alien)
+            aliens_bullets.add(new_bullet)
 
 
 def check_keyup_events(event, ship):
@@ -71,13 +80,15 @@ def check_play_button(ai_settings, screen, stats, play_button, sb, ship, aliens,
         ship.center_ship()
 
 
-def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button):
+def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, aliens_bullets, play_button):
     """更新屏幕上对图像，并切换到新屏幕"""
     # 每次循环时都重绘屏幕
     screen.fill(ai_settings.bg_color)
     # 在飞船和外星人后面重绘所有子弹
     for bullet in bullets.sprites():
         bullet.draw_bullet()
+    for aliens_bullet in aliens_bullets.sprites():
+        aliens_bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
 
@@ -182,8 +193,9 @@ def check_aliens_bottom(ai_settings, stats, sb, screen, ship, aliens, bullets):
             break
 
 
-def update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets):
+def update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets, aliens_bullets):
     check_fleet_edges(ai_settings, aliens)
+    update_aliens_bullet(ai_settings, screen, aliens, aliens_bullets)
     aliens.update()
 
     # 检测外星人和飞船直接的碰撞
@@ -191,6 +203,15 @@ def update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets):
         ship_hit(ai_settings, stats, screen, sb, ship, aliens, bullets)
     # 检查是否有外星人抵达屏幕底端
     check_aliens_bottom(ai_settings, stats, sb, screen, ship, aliens, bullets)
+
+
+def update_aliens_bullet(ai_settings, screen, aliens, aliens_bullets):
+    fire_aliens_bullet(ai_settings, screen, aliens, aliens_bullets)
+
+    aliens_bullets.update()
+    for aliens_bullet in aliens_bullets.copy():
+        if aliens_bullet.rect.bottom >= ai_settings.screen_height:
+            aliens_bullets.remove(aliens_bullet)
 
 
 def ship_hit(ai_settings, stats, screen, sb, ship, aliens, bullets):
