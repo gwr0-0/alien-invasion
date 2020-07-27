@@ -1,3 +1,4 @@
+import random
 import sys
 import pygame
 
@@ -27,10 +28,9 @@ def fire_bullet(ai_settings, screen, ship, bullets):
 
 def fire_aliens_bullet(ai_settings, screen, aliens, aliens_bullets):
     """如果没有达到限制，就发射一颗子弹"""
-    for alien in aliens:
-        if len(aliens_bullets) < ai_settings.bullets_allowed:
-            new_bullet = AlienBullet(ai_settings, screen, alien)
-            aliens_bullets.add(new_bullet)
+    if len(aliens_bullets) < ai_settings.bullets_allowed:
+        new_bullet = AlienBullet(ai_settings, screen, random.choice(aliens.sprites()))
+        aliens_bullets.add(new_bullet)
 
 
 def check_keyup_events(event, ship):
@@ -211,6 +211,7 @@ def update_aliens_bullet(ai_settings, screen, aliens, aliens_bullets):
     aliens_bullets.update()
     for aliens_bullet in aliens_bullets.copy():
         if aliens_bullet.rect.bottom >= ai_settings.screen_height:
+            print("remove")
             aliens_bullets.remove(aliens_bullet)
 
 
